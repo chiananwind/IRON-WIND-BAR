@@ -339,7 +339,7 @@ body {
     <div class="pwd-title">工作人員驗證</div>
     <div class="pwd-subtitle">輸入密碼以重置轉盤</div>
     <input class="pwd-input" id="pwd-input" type="password"
-      maxlength="6" placeholder="••••"
+      maxlength="6" placeholder="••••" inputmode="numeric" autocomplete="off" autocorrect="off"
       onkeydown="if(event.key==='Enter')confirmPwd()">
     <div class="pwd-error" id="pwd-error">密碼錯誤，請再試一次</div>
     <div class="pwd-row">
@@ -683,8 +683,9 @@ function closePwd() {
 function confirmPwd() {
   var val = document.getElementById("pwd-input").value;
   if (val === "2320") {
+    var idx = pendingIdx;   /* ← save BEFORE closePwd() resets pendingIdx */
     closePwd();
-    if (pendingIdx >= 0) doReset(pendingIdx);
+    if (idx >= 0) doReset(idx);
   } else {
     document.getElementById("pwd-error").classList.add("show");
     document.getElementById("pwd-input").value = "";
